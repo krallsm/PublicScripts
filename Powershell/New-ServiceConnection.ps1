@@ -1,12 +1,15 @@
 param (
-    # [Parameter(Mandatory = $true)]
+    [Parameter(Mandatory = $true)]
     [string]$appName,
 
     # [Parameter(Mandatory = $true)]
     [string]$appDescription = "Azure DevOps Service Connection for $appName",
 
-    # [Parameter(Mandatory = $true)]
+    [Parameter(Mandatory = $true)]
     [string]$devOpsProjectName,
+
+    [Parameter(Mandatory = $true)]
+    [string]$tenantName,
 
     # [Parameter(Mandatory = $true)]
     [boolean]$deployFederatedCredential = $true,
@@ -16,7 +19,7 @@ param (
     [SecureString]$federatedIdentityCredentialSubject
 )
 
-$appName = "DevOps-$devOpsProjectName-$appName"
+$appName = "DevOps-$devOpsProjectName-$tenantName-$appName"
 
 if(!($myApp = Get-AzADApplication -Filter "DisplayName eq '$($appName)'" -ErrorAction Stop))
 {
